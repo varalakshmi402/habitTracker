@@ -26,5 +26,12 @@ private val _habits = MutableStateFlow<List<Habit>>(emptyList())
                 _habits.value=habitList
             }
         }
+
+    }
+    fun insertHabits(habit:String){
+        viewModelScope.launch {
+            val newHabit = Habit(title = habit)
+            repository.insertHabit(newHabit)
+        }
     }
 }

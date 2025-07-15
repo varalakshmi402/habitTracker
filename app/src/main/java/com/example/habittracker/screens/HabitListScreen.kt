@@ -16,11 +16,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HabitListScreen(viewModel: HabitViewModel = hiltViewModel()) {
+fun HabitListScreen(navController: NavController , viewModel: HabitViewModel = hiltViewModel()) {
     val habitList by viewModel.habits.collectAsState()
     Scaffold(topBar = {
         TopAppBar(
@@ -29,7 +30,7 @@ fun HabitListScreen(viewModel: HabitViewModel = hiltViewModel()) {
     },
         floatingActionButton = {
             FloatingActionButton(onClick = {
-                //ToDo
+                navController.navigate("addHabitScreen")
             }) { Text("+") }
         }){
         innerPadding->

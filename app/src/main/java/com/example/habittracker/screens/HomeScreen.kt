@@ -15,10 +15,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import org.intellij.lang.annotations.JdkConstants.HorizontalAlignment
 
 @Composable
-fun HomeScreen() {
+fun HomeScreen(navController: NavController) {
     Column(Modifier.fillMaxSize()
         .padding(24.dp),
         verticalArrangement = Arrangement.Center,
@@ -26,6 +27,6 @@ fun HomeScreen() {
     ){
         Text(text="Welcome to tracking", style = MaterialTheme.typography.headlineMedium)
         Spacer(Modifier.height(16.dp))
-        Button(modifier = Modifier.wrapContentWidth().wrapContentHeight(),onClick={}) { Text(text="Get Started") }
+        Button(modifier = Modifier.wrapContentWidth().wrapContentHeight(),onClick={navController.navigate("habitListScreen")}) { Text(text="Get Started") }
     }
 }

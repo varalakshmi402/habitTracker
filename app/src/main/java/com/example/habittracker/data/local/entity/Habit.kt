@@ -7,6 +7,6 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "habit_table")
 data class Habit(
     @PrimaryKey(autoGenerate = true)
-val id :Int = 0,
+    val id :Int = 0,
     val title: String,
     val timeStamp:Long = System.currentTimeMillis())
