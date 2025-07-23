@@ -1,15 +1,10 @@
 package com.example.habittracker.screens
 
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.habittracker.data.local.entity.Habit
 import com.example.habittracker.domain.repository.HabitRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -28,10 +23,14 @@ private val _habits = MutableStateFlow<List<Habit>>(emptyList())
         }
 
     }
-    fun insertHabits(habit:String){
+    fun insertHabits(habit:Habit){
         viewModelScope.launch {
-            val newHabit = Habit(title = habit)
-            repository.insertHabit(newHabit)
+            repository.insertHabit(habit)
+        }
+    }
+    fun deleteHabit(habit: Habit){
+        viewModelScope.launch {
+            repository.deleteHabit(habit)
         }
     }
 }

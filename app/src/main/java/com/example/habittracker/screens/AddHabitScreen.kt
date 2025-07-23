@@ -24,6 +24,7 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.example.habittracker.data.local.entity.Habit
 import kotlinx.coroutines.launch
 
 @Composable
@@ -49,7 +50,7 @@ fun AddHabitScreen(navController: NavController,viewModel:HabitViewModel = hiltV
             Spacer(modifier = Modifier.padding(12.dp))
             Row(modifier = Modifier.fillMaxSize()) {
                 Button(onClick = {
-                    viewModel.insertHabits(habitName)
+                    viewModel.insertHabits(Habit(title=habitName))
                     keyboardController?.hide()
                     focusManager.clearFocus()
 

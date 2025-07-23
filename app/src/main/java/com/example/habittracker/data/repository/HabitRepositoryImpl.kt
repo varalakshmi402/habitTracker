@@ -9,4 +9,5 @@ class HabitRepositoryImpl(private val dao: HabitDao):HabitRepository {
     override fun getHabits(): Flow<List<Habit>> =dao.getHabits()
 
     override suspend fun insertHabit(habit: Habit)=dao.insertHabit(habit)
+    override suspend fun deleteHabit(habit: Habit)=dao.deleteHabit(habit)
 }
