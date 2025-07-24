@@ -13,6 +13,10 @@ navigationCompose = "2.9.0"
 hilt = "2.51"
 hilt_nav = "1.1.0"
 roomRuntimeAndroid = "2.6.1"
+google-services="4.4.0"
+firebase-bom = "32.8.1"
+firebase-auth = "22.3.1"
+play-services-auth="21.0.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -37,11 +41,16 @@ hiltNavigationCompose = { group = "androidx.hilt", name = "hilt-navigation-compo
 androidx-room-runtime-android = { group = "androidx.room", name = "room-runtime", version.ref = "roomRuntimeAndroid" }
 androidx-room-roomKtx = { group = "androidx.room", name = "room-ktx", version.ref = "roomRuntimeAndroid" }
 roomCompiler = { group = "androidx.room", name = "room-compiler", version.ref = "roomRuntimeAndroid" }
+firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebase-bom" }
+firebase-auth = { group = "com.google.firebase", name = "firebase-auth", version.ref = "firebase-auth" }
+play-services-auth= {group = "com.google.android.gms", name = "play-services-auth", version.ref = "play-services-auth"}
+
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlin-kapt = { id = "org.jetbrains.kotlin.kapt" }
 dagger-hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+google-services = { id = "com.google.gms.google-services", version.ref = "google-services" }
 
 

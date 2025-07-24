@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.kapt)
     alias(libs.plugins.dagger.hilt)
+    alias(libs.plugins.google.services)
 }
 
 android {
@@ -65,6 +66,9 @@ dependencies {
     implementation(libs.androidx.room.roomKtx)
     kapt(libs.hiltCompiler)
     kapt(libs.roomCompiler)
+    implementation(platform(libs.firebase.bom)) // Firebase BOM
+    implementation(libs.firebase.auth)
+    implementation(libs.play.services.auth)
     implementation(libs.hiltNavigationCompose)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
