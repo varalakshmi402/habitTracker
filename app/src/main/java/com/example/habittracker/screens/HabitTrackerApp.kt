@@ -5,6 +5,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.habittracker.Container.AddHabitContainer
+import com.example.habittracker.Container.HabitListScreenContainer
 
 @Composable
 fun HabitTrackerApp() {
@@ -19,11 +21,11 @@ fun HabitTrackerApp() {
         composable("home") {
             HomeScreen(navController)
         }
-        composable("habitListScreen") {
-            HabitListScreen(navController)
+        composable("habitListContainer") {
+            HabitListScreenContainer (onNavigateToAddhabit = {navController.navigate("addHabitScreen")})
         }
         composable("addHabitScreen"){
-            AddHabitScreen(navController)
+            AddHabitContainer (onNavigateToHabitListScreen = { navController.navigate("habitListContainer") })
         }
     }
 }

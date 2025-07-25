@@ -26,6 +26,6 @@ fun HomeScreen(navController: NavController) {
     ){
         Text(text="Welcome to tracking", style = MaterialTheme.typography.headlineMedium)
         Spacer(Modifier.height(16.dp))
-        Button(modifier = Modifier.wrapContentWidth().wrapContentHeight(),onClick={navController.navigate("habitListScreen")}) { Text(text="Get Started") }
+        Button(modifier = Modifier.wrapContentWidth().wrapContentHeight(),onClick={navController.navigate("habitListContainer")}) { Text(text="Get Started") }
     }
 }

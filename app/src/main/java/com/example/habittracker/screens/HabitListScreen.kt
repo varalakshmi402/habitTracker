@@ -6,6 +6,9 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
@@ -30,24 +33,22 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HabitListScreen(navController: NavController , viewModel: HabitViewModel = hiltViewModel()) {
-    val habitList by viewModel.habits.collectAsState()
-    var habitToDelete by remember { mutableStateOf<Habit?>(null) }
-    var recentlyDeletedHabit by remember { mutableStateOf<Habit?>(null) }
-    val coRoutineScope = rememberCoroutineScope ()
-    val snackbarHostState = remember { SnackbarHostState() }
+fun HabitListScreen(
+    habits:List<Habit>,
+    snackbarHostState: SnackbarHostState,
+    onDeleteHabit:(Habit)->Unit,
+    onAddHabitClick:()->Unit
+) {
     Scaffold(topBar = {
         TopAppBar(
             title={ Text("Your Habits") },
         )
     },
-        snackbarHost = {
-            SnackbarHost(hostState=snackbarHostState)
-        },
+        snackbarHost = {SnackbarHost(snackbarHostState)},
         floatingActionButton = {
-            FloatingActionButton(onClick = {
-                navController.navigate("addHabitScreen")
-            }) { Text("+") }
+            FloatingActionButton(onClick = onAddHabitClick){
+                 Icon(Icons.Default.Add, contentDescription = "Add Habit")
+            }
         }){
         innerPadding->
         LazyColumn (
@@ -56,29 +57,29 @@ fun HabitListScreen(navController: NavController , viewModel: HabitViewModel = h
             fillMaxSize()
                 .padding(16.dp, vertical = 8.dp)
         ){
-            items(habitList){
-                habit-> HabitItem(habit, onDeleteClick = {habitToDelete=it})
+            items(habits){
+                habit-> HabitItem(habit, onDeleteClick = {onDeleteHabit(habit)})
             }
         }
-        habitToDelete?.let {habit->
-            CustomDialog("Delete Habit?",
-                "Are you sure you want to delete the \"${habit.title}\"?",
-                "Cancel",
-                "Confirm",
-                {habitToDelete=null},
-                {habitToDelete=null
-                        recentlyDeletedHabit=habit
-                coRoutineScope.launch { viewModel.deleteHabit(habit) }})
-        }
-        recentlyDeletedHabit?.let {habit->
-            coRoutineScope.launch {
-                val result= snackbarHostState.showSnackbar("${habit.title} is deleted","UNDO", duration = SnackbarDuration.Short)
-                if(result==SnackbarResult.ActionPerformed){
-                    viewModel.insertHabits(habit)
-                }
-                recentlyDeletedHabit=null
-            }
-        }
+//        habitToDelete?.let {habit->
+//            CustomDialog("Delete Habit?",
+//                "Are you sure you want to delete the \"${habit.title}\"?",
+//                "Cancel",
+//                "Confirm",
+//                {habitToDelete=null},
+//                {habitToDelete=null
+//                        recentlyDeletedHabit=habit
+//                coRoutineScope.launch { viewModel.deleteHabit(habit) }})
+//        }
+//        recentlyDeletedHabit?.let {habit->
+//            coRoutineScope.launch {
+//                val result= snackbarHostState.showSnackbar("${habit.title} is deleted","UNDO", duration = SnackbarDuration.Short)
+//                if(result==SnackbarResult.ActionPerformed){
+//                    viewModel.insertHabits(habit)
+//                }
+//                recentlyDeletedHabit=null
+//            }
+//        }
 
     }
 

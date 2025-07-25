@@ -28,17 +28,14 @@ import com.example.habittracker.data.local.entity.Habit
 import kotlinx.coroutines.launch
 
 @Composable
-fun AddHabitScreen(navController: NavController,viewModel:HabitViewModel = hiltViewModel()) {
-    var habitName  by remember { mutableStateOf("") }
-    val snackBarHostState  = remember { SnackbarHostState()}
-    val scope = rememberCoroutineScope()
-
-    val focusManager = LocalFocusManager.current
-    val keyboardController = LocalSoftwareKeyboardController.current
-
+fun AddHabitScreen(
+    habitName:String,
+    onHabitNameChange:(String)->Unit,
+    onAddHabit:()->Unit,
+                   onViewHabit:()->Unit) {
 
     Scaffold (
-        snackbarHost = {SnackbarHost(hostState = snackBarHostState)}) { paddingValues ->
+    ) { paddingValues ->
         Column(
             modifier = Modifier.fillMaxSize()
                 .padding(paddingValues)
@@ -46,19 +43,13 @@ fun AddHabitScreen(navController: NavController,viewModel:HabitViewModel = hiltV
         ) {
             Text(text = "Name your Habit", style = MaterialTheme.typography.headlineSmall)
             Spacer(modifier = Modifier.padding(12.dp))
-            TextField(value = habitName, onValueChange = { habitName = it })
             Spacer(modifier = Modifier.padding(12.dp))
             Row(modifier = Modifier.fillMaxSize()) {
                 Button(onClick = {
-                    viewModel.insertHabits(Habit(title=habitName))
-                    keyboardController?.hide()
-                    focusManager.clearFocus()
-
-                    scope.launch { snackBarHostState.showSnackbar("Habit Added Succesfully") }
-                    habitName = ""
+                    onAddHabit()
                 }) { Text("Add") }
                 Button(onClick = {
-                    navController.popBackStack()
+                    onViewHabit()
                 }) { Text("View Habit List") }
             }
         }
